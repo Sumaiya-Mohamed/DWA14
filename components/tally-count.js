@@ -140,20 +140,20 @@ body {
         this.maxCount = 15;
      }
 
-     increment(){
+     increment(){// Method that allows the number to increase by 1 every time the "+" button is clicked, until the max number is reached.
         if(this.count < this.maxCount){
             this.count++;
         }
      }
 
      decrement(){
-      if(this.count >= -5){
+      if(this.count >= -5){// Method that allows the number to be decreased by 1 every time the "-" button is clicked,until the min number is reached.
          this.count--;
       }
      }
 
      reset(){
-      this.count = 0;
+      this.count = 0;//Method that resets the number to  0.
      }
 
      render(){
@@ -167,8 +167,8 @@ body {
       }
 
 
-      const isMaxCountReached = this.count === this.maxCount;
-      const isMinCountReached = this.count === -5;
+      const isMaxCountReached = this.count === this.maxCount;// Max amount that the app can reach.
+      const isMinCountReached = this.count === -5;// Minimum amount that the app can reach.
 
      return html`
    <header class="header">
@@ -178,13 +178,19 @@ body {
     <main class="counter">
         <div class="counter_value">${this.count}</div>
       <div class="counter_actions">
-        <button data-key="subtract" class="counter_button" 
-        @click = ${this.increment} ?disabled =${isMaxCountReached}
-        >+</button>
-        <button class="reset_button" @click = ${this.reset}>Reset</button>
-        <button data-key="add" class="counter_button  counter_button_first"
+        <sl-button data-key="add" class="counter_button counter_button_first"
+         variant="primary" outline pill
+         @click = ${this.increment} ?disabled =${isMaxCountReached}
+         >+</sl-button>
+
+        <sl-button data-reset class="counter_button" variant="primary" 
+        @click = ${this.reset}
+        >Reset</sl-button>
+
+        <sl-button  data-key="subtract" class="counter_button  counter_button_first" 
+        id="sl__button" variant="primary" outline pill
         @click = ${this.decrement} ?disabled =${isMinCountReached}
-        >-</button>
+        >-</sl-button>
        
        </div> 
        <br>
