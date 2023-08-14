@@ -3,7 +3,7 @@ import {LitElement, css, html} from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core
 class tallyCount extends LitElement{
       static styles = css `
         :root {
-    --color-green: #31c48d;
+    --color-blue: #31a2c4;
     --color-white: #ffffff;
     --color-dark-grey: #33333d;
     --color-medium-grey: #424250;
@@ -25,7 +25,7 @@ body {
 
 .header{
     text-align: center;
-    background-color: rgb(236, 199, 205);
+    background-color: var(--color-blue)
    
 }
  header h1{
@@ -42,21 +42,8 @@ body {
  }
 
  .footer a {
-    color: var(--color-white);
+    color: var(--color-blue);
  }
-/* controls */
-
-.controls{
-    background: yellow;
-    display: flex;
-    justify-content: space-around;
-    color: black;
-}
-
-
-
-
-
 
 
 
@@ -73,22 +60,16 @@ body {
     font-weight: 900;
     background: none; /* This makes the background see through */
     color: var(--color-white);
-    border-width: 0;
-    border-bottom: 1px solid var(--color-light-grey);
+   
 }
 
 .counter_button{
     background: none;
-    width: 50%;
-    border-style: groove;
-    border-color: #d2d6dc;
-    border-width: 5px;
+    width: 35%;
     color: var(--color-dark-grey);
-    font-size: 5rem;
-    height: 10rem;
+    font-size: 4rem;
     transition: transform 0.3s;
     transform: translateY(0);
-    background-color: rgb(236, 199, 205);
 
 }
 
@@ -102,11 +83,11 @@ body {
 }
 .counter_actions{
     display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
 
-.counter_button_first{
-    border-right: 1px solid var(--color-light-grey);
-}
+
 
 .message{
    text-align: center;
@@ -116,17 +97,16 @@ body {
 
 .reset_button{
    background: none;
-   width: 10%;
-   border-style: groove;
-   border-color: #d2d6dc;
-   border-width: 5px;
+   width: 30%;
    color: var(--color-dark-grey);
-   font-size: 2rem;
+   font-size: 1.5rem;
    height: 10rem;
    transition: transform 0.3s;
    transform: translateY(0);
    background-color: rgb(236, 199, 205);
 }
+
+
       `
      
      static properties = {
@@ -137,38 +117,38 @@ body {
      constructor(){
         super(),
         this.count = 0;
-        this.maxCount = 15;
+        this.maxCount = 30;
      }
 
-     increment(){// Method that allows the number to increase by 1 every time the "+" button is clicked, until the max number is reached.
-        if(this.count < this.maxCount){
+     increment(){ //This method increments the value shown when the "+" button is clicked.
+        if(this.count < this.maxCount){ 
             this.count++;
         }
      }
 
-     decrement(){
-      if(this.count >= -5){// Method that allows the number to be decreased by 1 every time the "-" button is clicked,until the min number is reached.
+     decrement(){ //This method decrements the value shown when the "-" button is clicked.
+      if(this.count >= -5){
          this.count--;
       }
      }
 
      reset(){
-      this.count = 0;//Method that resets the number to  0.
+      this.count = 0;
      }
 
-     render(){
+     render(){// Messages that are displayed based on the value of the number displayed.
       let message = '';
       if(this.count === -5){
          message = 'Minimum reached';
       }else if(this.count === this.maxCount){
          message = 'Maximum reached';
       }else{
-         message = 'Normal';
+         message = '';
       }
 
 
-      const isMaxCountReached = this.count === this.maxCount;// Max amount that the app can reach.
-      const isMinCountReached = this.count === -5;// Minimum amount that the app can reach.
+      const isMaxCountReached = this.count === this.maxCount;
+      const isMinCountReached = this.count === 0;
 
      return html`
    <header class="header">
@@ -178,20 +158,17 @@ body {
     <main class="counter">
         <div class="counter_value">${this.count}</div>
       <div class="counter_actions">
-        <sl-button data-key="add" class="counter_button counter_button_first"
-         variant="primary" outline pill
-         @click = ${this.increment} ?disabled =${isMaxCountReached}
-         >+</sl-button>
-
+       <sl-button data-key="add" class="counter_button counter_button_first" variant="primary" outline pill
+        @click = ${this.increment} ?disabled =${isMaxCountReached}
+        >+</sl-button>
+       
         <sl-button data-reset class="counter_button" variant="primary" 
         @click = ${this.reset}
         >Reset</sl-button>
-
-        <sl-button  data-key="subtract" class="counter_button  counter_button_first" 
-        id="sl__button" variant="primary" outline pill
+        
+        <sl-button  data-key="subtract" class="counter_button" id="sl__button" variant="primary" outline pill
         @click = ${this.decrement} ?disabled =${isMinCountReached}
         >-</sl-button>
-       
        </div> 
        <br>
        <div class="message">${message}</div>
