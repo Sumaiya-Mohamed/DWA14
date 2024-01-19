@@ -1,4 +1,4 @@
-#Welcome to Tally Counter
+# Welcome to Tally Counter 👋
 ![Image of the tally counter app running through the live server extension](./Images/AppUi.png)
 ## Author:
 Sumaiya Mohamed
